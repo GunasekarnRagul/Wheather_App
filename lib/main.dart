@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.white,
       body: bodyUi(),
     );
   }
@@ -90,20 +90,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _locationHeader() {
-    // return Text(weather?.areaName ?? '',style: TextStyle(
-    //     fontSize: Dimensions.updateDimensions(context, 'w', 20),
-    //   fontWeight: FontWeight.w500,
-    //
-    // ),);
-    return RichText(
-      text: TextSpan(
-        text: weather?.areaName ?? '',
-        style: GoogleFonts.ubuntu(
-          color: Colors.black,
-          fontSize: Dimensions.updateDimensions(context, 'w', 35),
-          fontWeight: FontWeight.w300,
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.location_on_outlined,
+          color: Colors.blueGrey,
+          size: Dimensions.updateDimensions(context, 'w', 35),
         ),
-      ),
+        RichText(
+          text: TextSpan(
+            text: weather?.areaName ?? '',
+            style: GoogleFonts.ubuntu(
+              color: Colors.black,
+              fontSize: Dimensions.updateDimensions(context, 'w', 35),
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -227,11 +234,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
               RichText(
                 text: TextSpan(
                   text:
-                  "MIN: ${weather?.tempMin?.celsius?.toStringAsFixed(0)}° C",
+                      "MIN: ${weather?.tempMin?.celsius?.toStringAsFixed(0)}° C",
                   style: GoogleFonts.ubuntu(
                     color: Colors.white,
                     fontSize: Dimensions.updateDimensions(context, 'w', 15),
@@ -248,8 +254,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               RichText(
                 text: TextSpan(
-                  text:
-                  "WIND: ${weather?.windSpeed?.toStringAsFixed(0)} M/S",
+                  text: "WIND: ${weather?.windSpeed?.toStringAsFixed(0)} M/S",
                   style: GoogleFonts.ubuntu(
                     color: Colors.white,
                     fontSize: Dimensions.updateDimensions(context, 'w', 15),
@@ -257,11 +262,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
               RichText(
                 text: TextSpan(
-                  text:
-                  "HUMANITY: ${weather?.humidity?.toStringAsFixed(0)} %",
+                  text: "HUMANITY: ${weather?.humidity?.toStringAsFixed(0)} %",
                   style: GoogleFonts.ubuntu(
                     color: Colors.white,
                     fontSize: Dimensions.updateDimensions(context, 'w', 15),
