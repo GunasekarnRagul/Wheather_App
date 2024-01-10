@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:weather/weather.dart';
 import 'package:wheather_app/responsive/dimensions.dart';
 import 'const.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -32,14 +34,37 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final WeatherFactory _wf = WeatherFactory(OEPNWEATHER_API_KEY);
   Weather? weather;
-
+  String _locationMessage = '';
+   double latitude = 0.0;
+   double longitude = 0.0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _wf.currentWeatherByCityName('pondicherry').then((value) => {
+    _getLocation();
+    _wf.currentWeatherByLocation(
+      latitude,longitude
+    ).then((value) => {
           weather = value,
         });
+
+
+  }
+  Future<void> _getLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+
+      setState(() {
+        _locationMessage =
+        "Latitude: ${position.latitude}, Longitude: ${position.longitude}";
+        latitude = position.latitude;
+        longitude = position.longitude;
+        print(_locationMessage);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
